@@ -14,11 +14,13 @@ Jupyter notebook はRを使うインターフェースの一つです。JupyterH
 
 ## P00: 自分のユーザ名とパスワードを確認しましょう
 
-> **ユーザ名とパスワードはmanabaに記載してあります**
+> **ユーザ名とパスワードはmanabaに記載してあります**  
+> [manaba での限定公開情報](https://manaba.tsukuba.ac.jp/ct/page_1855096c1318532)
 
 ## P01: JupyterHub へアクセスする
 
-> **URLはmanabaに記載してあります**
+> **URLはmanabaに記載してあります**  
+> [manaba での限定公開情報](https://manaba.tsukuba.ac.jp/ct/page_1855096c1318532)
 
 アクセスすると下図のような画面が表示されます。`ADVANCED`をクリックしてください（下図、矢印）。
 
