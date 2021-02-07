@@ -12,9 +12,13 @@
   - [5. データテーブル（表）の形を調べるのに便利な関数： `dim()`, `head()`, `str()`](#5-データテーブル表の形を調べるのに便利な関数-dim-head-str)
   - [6. データフレームから特定の条件に当てはまる行を抽出する： `filter()`](#6-データフレームから特定の条件に当てはまる行を抽出する-filter)
   - [7. 特定の列を抽出する： `select()`](#7-特定の列を抽出する-select)
-  - [6. パイプ演算子 `%>%`](#6-パイプ演算子-)
-  - [7. 列を加える： `mutate()`](#7-列を加える-mutate)
+  - [8. パイプ演算子 `%>%`](#8-パイプ演算子-)
+  - [9. 列を加える： `mutate()`](#9-列を加える-mutate)
   - [8. ２つの列を結合する](#8-２つの列を結合する)
+  - [`tumor_communication.ipynb` を実行する](#tumor_communicationipynb-を実行する)
+    - [これはなんなのか？](#これはなんなのか)
+    - [実行方法](#実行方法)
+    - [使うデータの構造](#使うデータの構造)
   - [基本課題](#基本課題)
     - [基本課題A-1](#基本課題a-1)
     - [基本課題A-2](#基本課題a-2)
@@ -42,12 +46,6 @@ $ wget https://github.com/bioinfo-tsukuba/20201226-EB62104-bioinformatics-course
 $ wget https://github.com/bioinfo-tsukuba/20201226-EB62104-bioinformatics-course/raw/master/tutorial/data/CCCExplorer/LR_manual_revised.txt
 
 $ cd ../
-```
-
-
-
-```bash
-$ wget https://raw.githubusercontent.com/bioinfo-tsukuba/20201226-EB62104-bioinformatics-course/master/tutorial/notebook_001_tumor_communication.ipynb
 ```
 
 ## 2. 以降は R のノートブックを作成して始めましょう
@@ -272,7 +270,7 @@ df1_selected <- select(df1, mice_gene_symbol, WT1)
 select(df1, mice_gene_symbol, WT1) -> df1_selected
 ```
 
-## 6. パイプ演算子 `%>%`
+## 8. パイプ演算子 `%>%`
 
 - `%>%` → これのこと
 - `tidyverse` パッケージで使用できる
@@ -306,7 +304,7 @@ df1 %>%
     select(mice_gene_symbol, WT1) -> df1_filtered_selected
 ```
 
-## 7. 列を加える： `mutate()`
+## 9. 列を加える： `mutate()`
 
 - `mutate()` は新しい列を加えることができる
   - 第２引数では、`=` の前に新しい列名を書き、`=` の後に条件を書く
@@ -352,6 +350,135 @@ df1 %>%
     inner_join(df2, by = c("mice_gene_symbol"="Symbol")) -> df1_and_2
 ```
 
+## `tumor_communication.ipynb` を実行する
+
+### これはなんなのか？
+
+- 「非小細胞肺癌 (non-small-cell lung cancer; NSCLC)において、腫瘍組織内に存在する間質細胞から腫瘍細胞にシグナルのクロストークが起こって腫瘍が活性化されるか？ 」を調べてみる解析をRで行うノートブック
+  - `.ipynb` というのがノートブックの拡張子です
+- データの元論文
+  - Toi et al., Transcriptome Analysis of Individual Stromal Cell Populations Identifies Stroma-Tumor Crosstalk in Mouse Lung Cancer Model, Cell Reports (2015)
+  - https://doi.org/10.1016/j.celrep.2015.01.040
+- サンプル・計測技術について
+  - 腫瘍モデルマウス由来のRNA-seqデータ
+  - ５種類の組織・細胞群 x 2種類の条件：
+    - ５種類の組織・細胞群細胞群：
+      - NSCLCモデルマウスと野生型のマウスの肺からセルソーターで分けたもの：マクロファージ、単球細胞、好中球、上皮細胞
+        - 細胞型の分類は細胞表面の抗原マーカーによる
+          - <img src="img/2021-02-07-09-08-20.png" alt="" width="200">
+      - Total lung cells
+    - 2種類の条件: WT （野生型; Wild type)、Tum (腫瘍; Tumor)
+- 解析の方針
+  - 間質細胞において「正常組織由来のサンプル」に比べて「腫瘍組織由来のサンプル」で発現量が増加している遺伝子群を抽出する
+  - 腫瘍組織において正常組織において発現量が増加している遺伝子群を抽出する
+  - 「1.に含まれるリガンド」と「2.に含まれる受容体（レセプター）」をリガンド・受容体のペアのデータベースと比較する
+
+
+### 実行方法
+
+- [tumor_communication.ipynb](tumor_communication.ipynb) をダウンロードしてください
+- JupyterHub の `Upload` というボタンでアップロードできます
+- アップロードした `.ipynb` 形式のファイルはノートブックとして開いて実行・編集ができます
+
+### 使うデータの構造
+
+- `gene_exp.diff`
+  - マクロファージにおいて、各遺伝子の発現にWTとTumの条件間で差があるかを調べる発現変動解析の結果
+  - 列の説明
+    - test_id: 略
+    - gene_id: 遺伝子ID（ここでは遺伝子名が用いられている）
+    - gene: 略
+    - locus: 略
+    - sample_1: 略
+    - sample_2: 略
+    - status: 略
+    - value_1: 正常組織でのマクロファージにおける遺伝子発現量の平均値
+    - value_2: 腫瘍組織内マクロファージ (intratumoral macropahges)での遺伝子発現量の平均値
+    - log2(fold_change): value_2/value_1をlog2変換したもの。正の値であれば value_2 > value_1、負の値であれば value_1 > value_2
+    - test_stat: 略
+    - p_value: 発現変動を判定する統計検定の結果のp-value。小さい方が統計的に有意。
+    - q_value: p_value を多重検定補正したもの。小さい方が統計的に有意。
+    - significant: 略
+
+縦に遺伝子名のようなものが並んでいる。各行が遺伝子、各列が変数になっている
+p_valueやq_valueは発現変動を判定する統計検定の結果だろう
+log2(fold_change) は value_2/value_1をlog2変換したものだろう
+ちなみに、value_1 は正常組織でのマクロファージ、 value_2 は腫瘍組織内マクロファージ (intratumoral macropahges)でのFPKMの平均値
+これは メタデータ をみないとわからない
+
+- `HOM_MouseHumanSequence.rpt`
+  - ヒト-マウスのオーソログ関係の表。生物種ごとの遺伝子について記述されている。
+  - 列の説明
+    - HomoloGene ID: オーソログ関係自体のID。これが互いに共通なヒト遺伝子・マウス遺伝子はオーソログ関係にある
+    - Common Organism Name: 生物種名
+    - NCBI Taxon ID: 略
+    - Symbol: 遺伝子シンボル
+    - EntrezGene ID
+    - Mouse MGI ID: 略
+    - HGNC ID: 略
+    - OMIM Gene ID: 略
+    - Genetic Location: 略
+    - Genomic Coordinates (mouse: GRCm38, human: GRCh37.p10): 略
+    - Nucleotide RefSeq IDs: 略
+    - Protein RefSeq IDs: 略
+    - SWISS_PROT IDs: 略
+
+- `genes.read_group_tracking`
+  - 腫瘍細胞において各遺伝子の発現量をまとめた表
+  - 列の説明
+    - tracking_id: 遺伝子のID
+    - condition: 略
+    - replicate: 略
+    - raw_frags: 略
+    - internal_scaled_frags: 略
+    - external_scaled_frags: 略
+    - FPKM: 正規化された遺伝子発現量。大きい方が遺伝子発現量（mRNA量）が多い。
+    - effective_length: 略
+    - status: 略
+
+- `LR_manual_revised.txt`
+  - ヒトにおける、リガンドと受容体のペアの対応関係をまとめた表
+  - 列の説明
+    - From: リガンドの遺伝子シンボル
+    - To: 受容体の遺伝子シンボル  
+
+
+- `GSE59831_processed_data_FPKM.txt`
+  - 各サンプルでの各遺伝子の発現量を調べた表
+    - Tum1, Tum2, Tum3 が腫瘍組織内マクロファージ、WT1, WT2が野生型組織でのマクロファージ、Tum9, Tum10, Tum11が腫瘍細胞における遺伝子発現量
+  - 列の説明
+    - mice_gene_symbol: マウスのおける遺伝子シンボル
+    - human_gene_symbol: ヒトのおける遺伝子シンボル
+    - Tum1
+    - Tum2
+    - Tum3
+    - WT1
+    - WT2
+    - Tum4
+    - Tum5
+    - WT3
+    - WT4
+    - Tum6
+    - Tum7
+    - Tum8
+    - WT5
+    - WT6
+    - WT7
+    - Tum9
+    - Tum10
+    - Tum11
+    - WT8
+    - WT9
+    - WT10
+    - Tum12
+    - Tum13
+    - Tum14
+    - WT11
+    - WT12
+    - WT13
+
+
+
 ## 基本課題
 
 ### 基本課題A-1
@@ -384,5 +511,5 @@ df1 %>%
 
 ### 基本課題A-5
 
-- [tumor_communication.ipynb] をダウンロードし、実行せよ
+- [tumor_communication.ipynb](tumor_communication.ipynb) をダウンロードし、実行せよ
 - 上のメニューから `File > Download as > PDF (.pdf)` とすることで、実行結果をダウンロードできるので、それを manaba で提出せよ
