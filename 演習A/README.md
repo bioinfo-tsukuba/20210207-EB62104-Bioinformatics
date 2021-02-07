@@ -497,7 +497,7 @@ log2(fold_change) は value_2/value_1をlog2変換したものだろう
 
 ### 基本課題A-3
 
-- df1 と df2 を `inner_join()`, `left_join()`, `right_join()`, `outer_join()` でJOINした際に、それぞれの結果の行数を調べよ
+- df1 と df2 を `inner_join()`, `left_join()`, `right_join()`, `full_join()` でJOINした際に、それぞれの結果の行数を調べよ
   - ただし、キーは c("human_gene_symbol"="Symbol")
 - manaba に直接書き込め
   - 半角で４種類の行数をコンマ（`,`）で区切れ（例： `103,130,142,210`）
