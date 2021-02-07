@@ -13,6 +13,12 @@
   - [発展課題](#発展課題)
     - [発展課題B-1](#発展課題b-1)
     - [発展課題B-2](#発展課題b-2)
+- [演習B 追記](#演習b-追記)
+  - [実行済みファイルについて](#実行済みファイルについて)
+  - [課題について](#課題について)
+    - [基本課題B-1について](#基本課題b-1について)
+    - [発展課題B-1について](#発展課題b-1について)
+  - [R で途中の結果までを保存する `saveRDS()` について](#r-で途中の結果までを保存する-saverds-について)
 
 ## 何をやるの？
 
@@ -147,3 +153,55 @@ $ less GSM3173562_Lakshmipuram_NCBI_processeddata.txt
 - この論文 https://doi.org/10.1016/j.bbrc.2020.03.044 ではヒトの13の組織において ACE2など SARS-COV2 の感染に関連する受容体の発現を調査している
 - Table S1 (Excelファイル) を参考に好きな組織の１細胞RNA-seqデータをダウンロードし、 [planarian_single_cell.ipynb](planarian_single_cell.ipynb) を参考に、データ前処理・解析を行い、ACE2遺伝子の発現量が高い細胞があるかを調べよ
 - 上のメニューから `File > Download as > HTML (.html)` とすることで、実行結果をダウンロードできるので、それを manaba で提出せよ
+
+# 演習B 追記
+
+## 実行済みファイルについて
+
+- 実行済みのノートブックもアップロードしました
+  - [planarian_single_cell_Executed.ipynb](planarian_single_cell_Executed.ipynb)
+- [planarian_markers.rds](planarian_markers.rds) をRで読み込むことで、細胞クラスター特異的遺伝子群を用いた解析を実施できます
+- また、B01からB16の結果の `planarian` も公開しました（ファイルサイズが大きいため、figshareというサービスにおいています）
+  - [https://figshare.com/articles/dataset/planarian_B01-B16_rds/13726531](https://figshare.com/articles/dataset/planarian_B01-B16_rds/13726531)
+
+
+## 課題について
+
+### 基本課題B-1について
+
+- 計算機トラブルのため、全員合格とします。
+
+### 発展課題B-1について
+
+- [planarian_markers.rds](planarian_markers.rds) をRで読み込むことで、実施できます
+
+以下のように、こちらで用意した planarian_markers で途中から初めていただくことができます
+
+
+まず、ターミナルでダウンロード
+
+```bash
+$ wget https://github.com/bioinfo-tsukuba/20210207-EB62104-Bioinformatics/raw/main/%E6%BC%94%E7%BF%92B/planarian_markers.rds
+```
+
+次に Rで読み込みます
+
+```R
+readRDS(planarian_markers, file="planarian_markers.rds")
+```
+
+これで R で `planarian_markers` の結果にアクセスできるようになります。
+
+
+## R で途中の結果までを保存する `saveRDS()` について
+
+- 途中の結果を保存することができます
+  - fileのところは好きに名前をつけられます
+
+```R
+# 保存
+saveRDS(planarian, file = "planarian_B09.rds")
+
+# 途中の結果を読み込んでそこからやり直す
+readRDS(planarian, file = "planarian_B09.rds")
+```
