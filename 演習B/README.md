@@ -204,5 +204,4 @@ saveRDS(planarian, file = "planarian_B09.rds")
 
 # 途中の結果を読み込んでそこからやり直す
 planarian <- readRDS("planarian_B09.rds")
-readRDS(planarian, file = "planarian_B09.rds")
 ```
