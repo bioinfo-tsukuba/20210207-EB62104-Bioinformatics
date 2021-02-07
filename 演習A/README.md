@@ -26,6 +26,7 @@
     - [基本課題A-4](#基本課題a-4)
     - [基本課題A-5](#基本課題a-5)
 - [演習A 追記・QAなど](#演習a-追記qaなど)
+  - [`.ipynb`ファイルのダウンロード・アップロードする方法](#ipynbファイルのダウンロードアップロードする方法)
   - [課題について](#課題について)
     - [基本課題A-3 ですが、 outer_join と書いてあるのは full_join の誤りでした](#基本課題a-3-ですが-outer_join-と書いてあるのは-full_join-の誤りでした)
     - [基本課題 A-3 は行数のみを提出してください](#基本課題-a-3-は行数のみを提出してください)
@@ -535,6 +536,15 @@ log2(fold_change) は value_2/value_1をlog2変換したものだろう
 
 # 演習A 追記・QAなど
 
+## `.ipynb`ファイルのダウンロード・アップロードする方法
+1. GitHub の tumor_communication.ipynb のページまで行きます
+	- https://github.com/bioinfo-tsukuba/20210207-EB62104-Bioinformatics/blob/main/%E6%BC%94%E7%BF%92A/tumor_communication.ipynb
+2. Raw というボタンを押すと、ファイルの中身が直接ブラウザに表示されます
+	- URL例: https://raw.githubusercontent.com/bioinfo-tsukuba/20210207-EB62104-Bioinformatics/main/%E6%BC%94%E7%BF%92A/tumor_communication.ipynb
+3. ２通りの方法があります
+	- a: 一旦ファイルを自分のコンピューターに保存して、JupyterHubにアップロード
+	- b: jupyterHubのターミナルで wget で URL から直接ダウンロード
+
 ## 課題について
 
 ### 基本課題A-3 ですが、 outer_join と書いてあるのは full_join の誤りでした
@@ -560,7 +570,7 @@ log2(fold_change) は value_2/value_1をlog2変換したものだろう
 - コンマで区切られていなければ CSV ではない
 - 一方で、半角スペースではなくタブっぽい間の空き方だったら、TSV
 
-あとは例えば、 `awk` というコマンド
+あとは例えば、 `awk` というコマンドを使う方が確実かもしれません
 
 ```bash
 # １行目にタブが含まれていたら１行目が出力される → TSV
