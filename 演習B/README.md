@@ -187,7 +187,7 @@ $ wget https://github.com/bioinfo-tsukuba/20210207-EB62104-Bioinformatics/raw/ma
 次に Rで読み込みます
 
 ```R
-readRDS(planarian_markers, file="planarian_markers.rds")
+planarian_markers <- readRDS(, file="planarian_markers.rds")
 ```
 
 これで R で `planarian_markers` の結果にアクセスできるようになります。
@@ -203,5 +203,6 @@ readRDS(planarian_markers, file="planarian_markers.rds")
 saveRDS(planarian, file = "planarian_B09.rds")
 
 # 途中の結果を読み込んでそこからやり直す
+planarian <- readRDS("planarian_B09.rds")
 readRDS(planarian, file = "planarian_B09.rds")
 ```
