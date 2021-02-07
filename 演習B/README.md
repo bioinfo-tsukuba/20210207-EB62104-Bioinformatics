@@ -56,7 +56,7 @@ Drop-seqという１細胞RNA-seqの場合、どの細胞がどんな細胞型�
   - 全ての遺伝子の発現量が重要なわけではない
   - 「個々の細胞の細胞型の違い・多様性」を見分けるためには、「細胞間で発現量が異なる遺伝子」を見なければならない
   - そこで「細胞間で発現量が大きく変動している遺伝子」を抽出する
-    - この際、遺伝子によっては「ノイズ」のように変動するものもあるため、統計学的に有意に高い変動を示す遺伝子を中種することが重要
+    - この際、遺伝子によっては「ノイズ」のように変動するものもあるため、統計学的に有意に高い変動を示す遺伝子を抽出することが重要
 - 5. 発現量データをスケーリングする
   - 細胞のアノテーションの前段階として、細胞のクラスタリングを行いたい
     - 計算処理の高速化や計測ノイズをならす意味がある
@@ -119,7 +119,7 @@ $ less GSM3173562_Lakshmipuram_NCBI_processeddata.txt
 ### 基本課題B-1
 
 - [planarian_single_cell.ipynb](planarian_single_cell.ipynb) をダウンロードし、実行せよ
-- 上のメニューから `File > Download as > PDF (.pdf)` とすることで、実行結果をダウンロードできるので、それを manaba で提出せよ
+- 上のメニューから `File > Download as > HTML (.html)` とすることで、実行結果をダウンロードできるので、それを manaba で提出せよ
 
 ## 発展課題
 
@@ -146,4 +146,4 @@ $ less GSM3173562_Lakshmipuram_NCBI_processeddata.txt
 
 - この論文 https://doi.org/10.1016/j.bbrc.2020.03.044 ではヒトの13の組織において ACE2など SARS-COV2 の感染に関連する受容体の発現を調査している
 - Table S1 (Excelファイル) を参考に好きな組織の１細胞RNA-seqデータをダウンロードし、 [planarian_single_cell.ipynb](planarian_single_cell.ipynb) を参考に、データ前処理・解析を行い、ACE2遺伝子の発現量が高い細胞があるかを調べよ
-- 上のメニューから `File > Download as > PDF (.pdf)` とすることで、実行結果をダウンロードできるので、それを manaba で提出せよ
+- 上のメニューから `File > Download as > HTML (.html)` とすることで、実行結果をダウンロードできるので、それを manaba で提出せよ
